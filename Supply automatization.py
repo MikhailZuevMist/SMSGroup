@@ -77,7 +77,7 @@ def fill_value(sheet1, saple_sheet, sheet2=None, sheet3=None):
         for cell in sheet1[1]:
             i += 1
             if cell.value.split()[0] in Dicts.dictPrice:
-                data = copy_paste(freerow, i, sheet1, saple_sheet, 10)A
+                data = copy_paste(freerow, i, sheet1, saple_sheet, 10)
 
         i = 0
         for cell in sheet2[1]:

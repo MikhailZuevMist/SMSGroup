@@ -23,7 +23,12 @@ def paste(data, sampleSheet, column):
             s = i.split(' ')
             s.pop()
             i = ' '.join(s)
-        sampleSheet.cell(row=row, column=column).value = i
+        if (column == 10 or column == 12 or column == 14) and i is not None:
+            i = i.replace(',', '.')
+            i = i.replace(' ', '')
+            sampleSheet.cell(row=row, column=column).value = float(i) / 1.12
+        else:
+            sampleSheet.cell(row=row, column=column).value = i
         row += 1
 
 
@@ -43,6 +48,7 @@ def count_files():
 def copy_paste(freerow, i, sheet, sampleSheet, column):
     data = get_data(freerow, i, sheet)
     paste(data, sampleSheet, column)
+    return data
 
 
 def fill_sample(sheet, sampleSheet):
@@ -66,16 +72,18 @@ def fill_value(sheet1, saple_sheet, sheet2=None, sheet3=None):
             i += 1
             if cell.value.split()[0] in Dicts.dictPrice:
                 copy_paste(freerow, i, sheet1, saple_sheet, 10)
+
     elif sheet2 != sheet3 is None:
         for cell in sheet1[1]:
             i += 1
             if cell.value.split()[0] in Dicts.dictPrice:
-                copy_paste(freerow, i, sheet1, saple_sheet, 10)
+                data = copy_paste(freerow, i, sheet1, saple_sheet, 10)A
+
         i = 0
         for cell in sheet2[1]:
             i += 1
             if cell.value.split()[0] in Dicts.dictPrice:
-                copy_paste(freerow, i, sheet2, saple_sheet, 12)
+                data = copy_paste(freerow, i, sheet2, saple_sheet, 12)
     else:
         for cell in sheet1[1]:
             i += 1
